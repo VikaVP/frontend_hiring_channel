@@ -5,23 +5,23 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCommentDots, faSignOutAlt, faUserCircle, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { Navbar, Nav, InputGroup, FormControl, Col, NavDropdown } from 'react-bootstrap'
-class Headers extends React.Component {
+class HeadersComp extends React.Component {
     constructor() {
         super()
         this.state = {
-            engineers: [],
-            engineersName: '',
+            companies: [],
+            companiesName: '',
             isLoading: false
         }
     }
     onSearch = e => {
         console.log(e.target.value);
 
-        this.setState({ engineersName: e.target.value, isLoading: true })
-        //call API search for engineers name
-        axios.get(`http://localhost:3003/api/v1/engineers/?s=${e.target.value}`)
+        this.setState({ companiesName: e.target.value, isLoading: true })
+        //call API search for companies name
+        axios.get(`http://localhost:3003/api/v1/companies/?s=${e.target.value}`)
             .then(res => {
-                this.setState({ engineers: res.data.data.Name, isLoading: false })
+                this.setState({ companies: res.data.data.Name, isLoading: false })
             }).catch(err => {
                 console.log(err)
                 this.setState({ isLoading: false })
@@ -29,11 +29,11 @@ class Headers extends React.Component {
     }
     onSelect = v => { };
     render() {
-        const { engineers, engineersName, isLoading } = this.state
+        const { companies, companiesName, isLoading } = this.state
         return (
             <>
                 <Navbar fixed="top" bg="light" expand="lg" >
-                    <Navbar.Brand href="/engineers"><img src={logo} alt="Arkademy" style={{ height: "50px" }} /></Navbar.Brand>
+                    <Navbar.Brand href="/companies"><img src={logo} alt="Arkademy" style={{ height: "50px" }} /></Navbar.Brand>
                     <Col md="7" className="mt-3">
                         <InputGroup className="mb-3">
                             <InputGroup.Prepend>
@@ -43,7 +43,7 @@ class Headers extends React.Component {
                                 placeholder="Search"
                                 aria-label="Search"
                                 aria-describedby="basic-addon1"
-                                value={engineersName} onChange={this.onSearch}
+                                value={companiesName} onChange={this.onSearch}
                                 onSelect={this.onSelect}
                             />
                         </InputGroup>
@@ -56,7 +56,7 @@ class Headers extends React.Component {
                                 <NavDropdown.Item eventKey="4.2" href="/companies">Companies</NavDropdown.Item>
                             </NavDropdown>
                             {/* <Nav.Link href="#home">Home</Nav.Link> */}
-                            <Nav.Link href="#" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faUserCircle} />  My Profile</Nav.Link>
+                            <Nav.Link href="/companyprofile/4" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faUserCircle} />  Profile</Nav.Link>
                             <div className="mt-2 ml-3" style={{ height: "30px", width: "1px", border: "1 px solid #2F4F4F", backgroundColor: "#2F4F4F" }}></div>
                             <Nav.Link href="#" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faCommentDots} /></Nav.Link>
                             <Nav.Link href="#" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faSignOutAlt} /></Nav.Link>
@@ -66,44 +66,12 @@ class Headers extends React.Component {
                 <div>
                     <ul>
                         {isLoading && <p>Loading...</p>}
-                        {!isLoading && engineers}
+                        {!isLoading && companies}
                     </ul>
                 </div>
             </>
         )
     }
 }
-export default Headers
+export default HeadersComp
 
-// function Headers() {
-//     return (
-//         <>
-//             <Navbar fixed="top" bg="light" expand="lg" >
-//                 <Navbar.Brand href="#home"><img src={logo} alt="Arkademy" style={{ height: "50px" }} /></Navbar.Brand>
-//                 <Col md="7" className="mt-3">
-//                     <InputGroup className="mb-3">
-//                         <InputGroup.Prepend>
-//                             <InputGroup.Text id="basic-addon1"><FontAwesomeIcon className="mr-auto ml-4" icon={faSearch} /></InputGroup.Text>
-//                         </InputGroup.Prepend>
-//                         <FormControl
-//                             placeholder="Search"
-//                             aria-label="Search"
-//                             aria-describedby="basic-addon1"
-//                         />
-//                     </InputGroup>
-//                 </Col>
-//                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//                 <Navbar.Collapse id="basic-navbar-nav" style={{ textSizeAdjust: "10px" }}>
-//                     <Nav className="mr-auto ml-2 mr-2">
-//                         <Nav.Link href="#home">Home</Nav.Link>
-//                         <Nav.Link href="#" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faUserCircle} />  my profilehk</Nav.Link>
-//                         <div className="mt-2 ml-3" style={{ height: "30px", width: "1px", border: "1 px solid #2F4F4F", backgroundColor: "#2F4F4F" }}></div>
-//                         <Nav.Link href="#" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faCommentDots} /></Nav.Link>
-//                         <Nav.Link href="#" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faSignOutAlt} /></Nav.Link>
-//                     </Nav>
-//                 </Navbar.Collapse>
-//             </Navbar>
-//         </>
-//     )
-// }
-// export default Headers

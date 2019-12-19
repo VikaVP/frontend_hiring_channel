@@ -51,10 +51,12 @@ export default class Login extends Component {
                                 />
                             </div>
                             <div className="text-center">
-                                <MDBBtn>Login</MDBBtn>
+                                <Link to={`/engineers`}>
+                                    <MDBBtn>Login</MDBBtn>
+                                </Link>
                             </div>
                         </form>
-                        <Link to={`../App.css`} className="btn btn-white">Dont have any account? Sign Up in here</Link>
+                        <Link to={`/signup`} className="btn btn-white">Dont have any account? Sign Up in here</Link>
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>

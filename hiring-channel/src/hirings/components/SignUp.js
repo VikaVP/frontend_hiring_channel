@@ -41,6 +41,7 @@ export default class SignUp extends Component {
                                     error="wrong"
                                     success="right"
                                 />
+
                                 <MDBInput
                                     label="Your email"
                                     icon="envelope"
@@ -68,9 +69,11 @@ export default class SignUp extends Component {
                                 />
                             </div>
                             <div className="text-center">
-                                <MDBBtn color="primary">Register</MDBBtn>
+                                <Link to={`/engineers`}>
+                                    <MDBBtn color="primary">Register</MDBBtn>
+                                </Link>
                             </div>
-                            <Link to={`../App.css`} className="btn btn-light">Already have account? Sign In in here</Link>
+                            <Link to={`/login`} className="btn btn-light">Already have account? Sign In in here</Link>
                         </form>
                     </MDBCol>
                 </MDBRow>

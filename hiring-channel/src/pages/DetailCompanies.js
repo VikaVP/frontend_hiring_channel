@@ -1,17 +1,17 @@
 import React from 'react'
 import '../App.css';
 import { useParams } from "react-router-dom"
-import DetailEngineer from '../hirings/components/DetailEngineer'
-import Headers from '../hirings/Headers'
+import DetailCompany from '../hirings/components/DetailCompany'
+import Headers from '../hirings/HeadersComp'
 import Footer from '../hirings/Footer'
-function DetailEngineers(props) {
+function DetailCompanies(props) {
     const { id } = useParams()
     return (
         <>
             <Headers />
-            <DetailEngineer id={id} />
+            <DetailCompany id={id} />
             <Footer />
         </>
     )
 }
-export default DetailEngineers
+export default DetailCompanies

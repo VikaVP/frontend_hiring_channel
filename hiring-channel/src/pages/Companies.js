@@ -1,18 +1,18 @@
 import React from 'react'
 import '../App.css'
 import Jumbotron from '../hirings/components/Jumbotron'
-import Cards from '../hirings/components/Cards'
+import CompanyList from '../hirings/components/CompanyList'
 // import Headers from '../hirings/Headers'
 import Footer from '../hirings/Footer'
 
-function Engineers() {
+function Companies() {
     return (
         <>
             {/* <Headers /> */}
             <Jumbotron />
-            <Cards />
+            <CompanyList />
             <Footer />
         </>
     )
 }
-export default Engineers
+export default Companies
