@@ -1,8 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import logo from '../../assets/arkademy.png'
+import swal from 'sweetalert'
+import jwtDecode from 'jwt-decode'
 import { Card, Dropdown, DropdownButton, Navbar, Nav, InputGroup, FormControl, Col, Pagination, NavDropdown } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelopeOpen, faHandHoldingUsd, faCommentDots, faSignOutAlt, faUserCircle, faSearch } from '@fortawesome/free-solid-svg-icons'
 // import Pagination from './Pagination'
@@ -18,7 +20,9 @@ class Cards extends React.Component {
             page: [],
             engineers: [],
             engineersName: '',
-            isLoading: false
+            isLoading: false,
+            id: '',
+            username: ''
         }
         this.prevPage = this.prevPage.bind(this)
         this.nextPage = this.nextPage.bind(this)
@@ -30,7 +34,7 @@ class Cards extends React.Component {
         this.setState({
             sort: value
         })
-        axios.get(`http://localhost:3003/api/v1/engineers/?sortBy=Name&sort=${value}`)
+        axios.get(`${process.env.REACT_APP_API_URL1}/engineers/?sortBy=Name&sort=${value}`)
             .then(res => {
                 this.setState({
                     posts: res.data.data,
@@ -42,7 +46,7 @@ class Cards extends React.Component {
         this.setState({
             sortBy: value
         })
-        axios.get(`http://localhost:3003/api/v1/engineers/?sortBy=${value}`)
+        axios.get(`${process.env.REACT_APP_API_URL1}/engineers/?sortBy=${value}`)
             .then(res => {
                 this.setState({
                     posts: res.data.data,
@@ -54,7 +58,7 @@ class Cards extends React.Component {
         this.setState({
             limits: value
         })
-        axios.get(`http://localhost:3003/api/v1/engineers/?limit=${value}`)
+        axios.get(`${process.env.REACT_APP_API_URL1}/engineers/?limit=${value}`)
             .then(res => {
                 this.setState({
                     posts: res.data.data,
@@ -67,7 +71,7 @@ class Cards extends React.Component {
         console.log(e.target.value);
         this.setState({ engineersName: val, isLoading: true })
         //call API search for engineers name
-        axios.get(`http://localhost:3003/api/v1/engineers/?s=${val}`)
+        axios.get(`${process.env.REACT_APP_API_URL1}/engineers/?s=${val}`)
             .then(res => {
                 // console.log(e.targ?et.value);
                 this.setState({ posts: res.data.data, isLoading: false })
@@ -78,7 +82,15 @@ class Cards extends React.Component {
             })
     }
     componentDidMount() {
-        axios.get(`http://localhost:3003/api/v1/engineers`)
+        const token = localStorage.token
+        const decoded = jwtDecode(token)
+        console.log(decoded);
+
+        this.setState({
+            id: decoded.dataId,
+            username: decoded.Name
+        })
+        axios.get(`${process.env.REACT_APP_API_URL1}/engineers`)
             .then(res => {
                 this.setState({
                     posts: res.data.data,
@@ -106,17 +118,25 @@ class Cards extends React.Component {
                 })
             })
     }
+    getLogout = () => {
+
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    localStorage.removeItem('token')
+                    this.props.history.push('/')
+                }
+            })
+
+    }
 
     render() {
         const { posts, page, engineers, engineersName, isLoading } = this.state
-        const pageNumbers = [];
-        let active = page.page
-        for (let i = 1; i <= Math.ceil(posts.length / page.limit); i++) {
-            pageNumbers.push(<Pagination.Item key={i} active={i === active}>
-                {i}
-            </Pagination.Item>);
-        }
-
         return (
             <><Navbar fixed="top" bg="light" expand="lg" >
                 <Navbar.Brand href="/engineers"><img src={logo} alt="Arkademy" style={{ height: "50px" }} /></Navbar.Brand>
@@ -141,11 +161,10 @@ class Cards extends React.Component {
                             <NavDropdown.Item eventKey="4.1" href="/engineers">Engineers</NavDropdown.Item>
                             <NavDropdown.Item eventKey="4.2" href="/companies">Companies</NavDropdown.Item>
                         </NavDropdown>
-                        {/* <Nav.Link href="#home">Home</Nav.Link> */}
-                        <Nav.Link href="/myprofile/15" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faUserCircle} />  My Profile</Nav.Link>
+                        <Nav.Link size="lg" href={`/myprofile/${this.state.id}`}><FontAwesomeIcon className="mr-auto ml-4" icon={faUserCircle} /> {this.state.username.split(' ')[0]}</Nav.Link>
                         <div className="mt-2 ml-3" style={{ height: "30px", width: "1px", border: "1 px solid #2F4F4F", backgroundColor: "#2F4F4F" }}></div>
                         <Nav.Link href="#" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faCommentDots} /></Nav.Link>
-                        <Nav.Link href="#" size="lg"><FontAwesomeIcon className="mr-auto ml-4" icon={faSignOutAlt} /></Nav.Link>
+                        <Nav.Link size="lg" onClick={this.getLogout}><FontAwesomeIcon className="mr-auto ml-4" icon={faSignOutAlt} /></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -162,8 +181,8 @@ class Cards extends React.Component {
                 </Dropdown>
                 <Dropdown style={{ marginLeft: "10px", marginTop: "50px", width: "140px", display: "inline-block" }}>
                     <DropdownButton id="dropdown-basic-button" title="SORT">
-                        <Dropdown.Item onClick={() => this.handleSort("ASC")}>Ascending</Dropdown.Item>
-                        <Dropdown.Item onClick={() => this.handleSort("DESC")} >Descending</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.handleSort("ASC")}>Name A-Z</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.handleSort("DESC")} >Name Z-A</Dropdown.Item>
                     </DropdownButton>
                 </Dropdown>
                 <Dropdown style={{ marginLeft: "10px", marginTop: "50px", width: "140px", display: "inline-block" }}>
@@ -172,7 +191,7 @@ class Cards extends React.Component {
              </Dropdown.Toggle>
                     <Dropdown.Menu style={{ textSizeAdjust: "10px", fontFamily: `'Tajawal', sans-serif` }}>
                         <Dropdown.Item onClick={() => this.handleLimit("5")} >5</Dropdown.Item>
-                        <Dropdown.Item onClick={() => this.handleLimit("5")} >10</Dropdown.Item>
+                        <Dropdown.Item onClick={() => this.handleLimit("10")} >10</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 <br />
@@ -204,14 +223,10 @@ class Cards extends React.Component {
                         </li>
                     )}
                 </center>
-                {/* <Pagination
-                    page={page}
-                    post={posts.length}
-                /> */}
                 <Nav className="justify-content-center" style={{ marginBottom: "50px", position: "relative", alignItems: "center" }}>
                     <Pagination>
-                        <Pagination.Item onClick={this.prevPage}> Prev </Pagination.Item>
-                        <Pagination.Item>{pageNumbers}</Pagination.Item>
+                        <Pagination.Item onClick={this.prevPage} > Prev </Pagination.Item>
+                        <Pagination.Item active>{page.page}</Pagination.Item>
                         <Pagination.Item onClick={this.nextPage} > Next</Pagination.Item>
                     </Pagination>
                 </Nav>
@@ -219,5 +234,5 @@ class Cards extends React.Component {
         )
     }
 }
-export default Cards
+export default withRouter(Cards)
 
