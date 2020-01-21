@@ -34,7 +34,7 @@ class Cards extends React.Component {
         this.setState({
             sort: value
         })
-        axios.get(`${process.env.REACT_APP_API_URL1}/engineers/?sortBy=Name&sort=${value}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/engineers/?sortBy=Name&sort=${value}`)
             .then(res => {
                 this.setState({
                     posts: res.data.data,
@@ -46,7 +46,7 @@ class Cards extends React.Component {
         this.setState({
             sortBy: value
         })
-        axios.get(`${process.env.REACT_APP_API_URL1}/engineers/?sortBy=${value}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/engineers/?sortBy=${value}`)
             .then(res => {
                 this.setState({
                     posts: res.data.data,
@@ -58,7 +58,7 @@ class Cards extends React.Component {
         this.setState({
             limits: value
         })
-        axios.get(`${process.env.REACT_APP_API_URL1}/engineers/?limit=${value}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/engineers/?limit=${value}`)
             .then(res => {
                 this.setState({
                     posts: res.data.data,
@@ -90,7 +90,7 @@ class Cards extends React.Component {
             id: decoded.dataId,
             username: decoded.Name
         })
-        axios.get(`${process.env.REACT_APP_API_URL1}/engineers`)
+        axios.get(`${process.env.REACT_APP_API_URL}/engineers`)
             .then(res => {
                 this.setState({
                     posts: res.data.data,
