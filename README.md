@@ -127,7 +127,7 @@ Contributions are what make the open source community such an amazing place to b
 
 email me - [@vika_vp](vikavp0@gmail.com) - vikavp0@gmail.com
 
-Project Link: [https://github.com/VikaVP/frontend_hiring_channel](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/VikaVP/frontend_hiring_channel](https://github.com/VikaVP/frontend_hiring_channel)
 
 
 
