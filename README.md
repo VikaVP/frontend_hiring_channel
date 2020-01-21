@@ -85,26 +85,26 @@ See the [open issues](https://github.com/VikaVP/frontend_hiring_channel/issues) 
 
 <p align='center'>
   <span>
-      <image width="300" src='./screenshoot/landing.png' />
-      <image width="300" src='./screenshoot/login.png' />
-      <image width="300" src='./screenshoot/login1.png' />
+      <image width="500" src='./screenshoot/landing.png' />
+      <image width="500" src='./screenshoot/login.png' />
+      <image width="500" src='./screenshoot/login1.png' />
      
       
   </span>
 </p>
 <p align='center'>
   <span>
-      <image width="300" src='./screenshoot/signup.png' />
-        <image width="300" src='./screenshoot/engineer.png' />
-      <image width="300" src='./screenshoot/companies.png' />
+      <image width="500" src='./screenshoot/signup.png' />
+        <image width="500" src='./screenshoot/engineer.png' />
+      <image width="500" src='./screenshoot/companies.png' />
       
   </span>
 </p>
 
 <p align='center'>
   <span>
-      <image width="300" src='./screenshoot/edit.png' />
-        <image width="300" src='./screenshoot/delete.png' />
+      <image width="500" src='./screenshoot/edit.png' />
+        <image width="500" src='./screenshoot/delete.png' />
       
   </span>
 </p>
