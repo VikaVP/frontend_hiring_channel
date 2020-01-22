@@ -35,6 +35,7 @@
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Roadmap](#roadmap)
+- [Contributing](#contributing)
 - [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
 
@@ -123,6 +124,7 @@ See the [open issues](https://github.com/VikaVP/frontend_hiring_channel/issues) 
   </span>
 </p>
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
